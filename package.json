@@ -1,0 +1,31 @@
+/**
+ * Task Interface - Görev veri modeli
+ * 
+ * Tasarım: Modern Minimalist Produktivite
+ * Temel Prensipler: Odaklanma Merkezli, Hiyerarşik Netlik
+ */
+
+export type TaskStatus = 'todo' | 'in-progress' | 'completed';
+export type TaskPriority = 'low' | 'medium' | 'high';
+
+export interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  dueDate?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TaskContextType {
+  tasks: Task[];
+  addTask: (task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  updateTask: (id: string, updates: Partial<Omit<Task, 'id' | 'createdAt' | 'updatedAt'>>) => void;
+  deleteTask: (id: string) => void;
+  getTaskById: (id: string) => Task | undefined;
+  clearCompleted: () => void;
+  getTasksByStatus: (status: TaskStatus) => Task[];
+  getTasksByPriority: (priority: TaskPriority) => Task[];
+}
